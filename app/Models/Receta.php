@@ -2,29 +2,35 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Receta extends Model
 {
-    use HasFactory;
-
-    protected $table = 'Receta'; // Especificar la tabla Receta
+    protected $table = 'Receta';
+    protected $primaryKey = 'id_receta';
 
     protected $fillable = [
-        'id_receta', 
-        'rut_paciente', 
-        'nombre_paciente', 
-        'edad_paciente', 
-        'sexo', 
-        'fecha_nacimiento',
-        'condicion_medica',
-        'fecha_creacion', 
-        'diagnostico', 
-        'comentarios', 
-        'nombre_medico', 
-        'rut_medico', 
-        'especialidad_medico',
-     ];
-     
-} 
+        'fecha_creacion',
+        'Diagnostico',
+        'comentarios',
+        'id_medico',
+        'id_paciente'
+    ];
+
+    public $timestamps = false;
+
+    // Relación con paciente
+    public function paciente()
+    {
+        return $this->belongsTo(Paciente::class, 'id_paciente', 'id_paciente');
+    }
+
+    // Relación con médico
+    public function medico()
+    {
+        return $this->belongsTo(Medico::class, 'id_medico', 'id_medico');
+    }
+
+    
+}
+

@@ -67,7 +67,7 @@
     <h3>Información del Paciente</h3>
     <div class="mb-3">
       <label for="rutPaciente" class="form-label">Rut Paciente:</label>
-      <input type="text" class="form-control" id="rutPaciente" name="rutPaciente" placeholder="Ingrese el Rut del Paciente">
+      <input type="text" class="form-control" id="rutPaciente" name="rutPaciente" placeholder="Ingrese el Rut del Paciente" value="{{ $rut ?? '' }}">
       <button type="button" class="btn btn-secondary mt-2" onclick="buscarPaciente()">Buscar Paciente</button>
     </div>
     <div class="mb-3">

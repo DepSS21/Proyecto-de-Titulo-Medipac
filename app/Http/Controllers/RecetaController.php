@@ -32,47 +32,50 @@ class RecetaController extends Controller
         $nextRecetaId = Receta::max('id_receta') + 1; // Obtener el próximo ID de la receta
 
         if ($paciente) {
-            return view('medico', compact('paciente', 'medico', 'nextRecetaId'));
+            return view('medico', compact('paciente', 'medico', 'nextRecetaId', 'rut'));
         } else {
             return redirect()->back()->with('error', 'Paciente no encontrado. Por favor, ingrese un RUT válido.');
         }
     }
 
     public function store(Request $request)
-    {
-        // Validar los datos del formulario
-        $request->validate([
-            'idReceta' => 'required|integer',
-            'rutPaciente' => 'required|string',
-            'nombrePaciente' => 'required|string',
-            'edadPaciente' => 'required|integer',
-            'sexoPaciente' => 'required|string',
-            'fechaNacimientoPaciente' => 'required|date',
-            'condicionMedicaPaciente' => 'required|string',
-            'fechaCreacion' => 'required|date',
-            'diagnostico' => 'required|string',
-            'comentario' => 'required|string',
-            'nombreMedico' => 'required|string',
-            'rutMedico' => 'required|string',
-            'especialidadMedico' => 'required|string',
+{
+    try {
+        // Validar solo los campos necesarios
+        $validatedData = $request->validate([
+            'diagnostico' => 'required|string|max:20',
+            'comentario' => 'required|string|max:255',
+            'rutPaciente' => 'required|string'
         ]);
 
-        // Crear una nueva receta
-        Receta::create([
-            'rutPaciente' => $request->rutPaciente,
-            'nombrePaciente' => $request->nombrePaciente,
-            'edadPaciente' => $request->edadPaciente,
-            'sexoPaciente' => $request->sexoPaciente,
-            'fechaNacimientoPaciente' => $request->fechaNacimientoPaciente,
-            'condicionMedicaPaciente' => $request->condicionMedicaPaciente,
-            'fechaCreacion' => $request->fechaCreacion,
-            'diagnostico' => $request->diagnostico,
-            'comentario' => $request->comentario,
-            'nombreMedico' => $request->nombreMedico,
-            'rutMedico' => $request->rutMedico,
-            'especialidadMedico' => $request->especialidadMedico,
-        ]);
+        // Obtener el médico de la sesión
+        $medico = Session::get('medico');
+        if (!$medico) {
+            return redirect()->route('medico.login.form')
+                ->with('error', 'Sesión de médico no encontrada.');
+        }
 
-        return redirect()->route('receta.form')->with('success', 'Receta generada exitosamente.');
+        // Buscar el paciente por RUT
+        $paciente = Paciente::where('rut_paciente', $validatedData['rutPaciente'])->first();
+        if (!$paciente) {
+            return redirect()->back()
+                ->with('error', 'Paciente no encontrado. Por favor, verifique el RUT.');
+        }
+
+        // Crear la receta
+        $receta = new Receta();
+        $receta->fecha_creacion = now(); // Fecha actual
+        $receta->Diagnostico = $validatedData['diagnostico'];
+        $receta->comentarios = $validatedData['comentario'];
+        $receta->id_medico = $medico->id_medico; // Usar el ID del médico en sesión
+        $receta->id_paciente = $paciente->id_paciente; // Usar el ID del paciente encontrado
+        $receta->save();
+
+        return redirect()->route('receta.form')
+            ->with('success', 'Receta generada exitosamente.');
+    } catch (\Exception $e) {
+        return redirect()->route('receta.form')
+            ->with('error', 'Error al generar la receta: ' . $e->getMessage());
     }
+}
 }
