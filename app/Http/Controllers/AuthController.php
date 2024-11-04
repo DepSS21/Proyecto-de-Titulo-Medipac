@@ -17,7 +17,7 @@ class AuthController extends Controller
         $credentials = $request->only('user', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Authentication passed...
+            // Authentication passed
             return redirect()->route('tipoUsuario');
         }
 

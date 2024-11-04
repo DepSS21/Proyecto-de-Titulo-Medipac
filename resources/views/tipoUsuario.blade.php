@@ -40,7 +40,7 @@
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">Farmacéutico</h5>
             <p class="card-text flex-grow-1">Área de farmacéuticos. Verifique y dispense recetas médicas electrónicas.</p>
-            <a href="/farmaceutico" class="btn btn-custom">Seleccionar</a>
+            <a href="{{ route('farmaceutico.login.form') }}" class="btn btn-custom">Seleccionar</a>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">Admin</h5>
             <p class="card-text flex-grow-1">Acceso para administradores. Gestione usuarios y configuraciones del sistema.</p>
-            <a href="{{ route('medico.create') }}" class="btn btn-custom">Seleccionar</a>
+            <a href="{{ route('admin.funciones') }}" class="btn btn-custom">Seleccionar</a>
           </div>
         </div>
       </div>
