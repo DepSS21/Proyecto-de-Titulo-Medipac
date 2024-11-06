@@ -92,15 +92,14 @@ Route::post('/farmaceutico/logout', [FarmaceuticoController::class, 'logout'])->
 // Ruta para el dashboard del farmacéutico
 Route::get('/farmaceutico/dashboard', [FarmaceuticoController::class, 'dashboard'])->name('farmaceutico.dashboard');
 
+
 // Rutas para los módulos
-Route::get('/modulo/a', function () {
-    return 'Módulo A';
-})->name('modulo.a');
+Route::get('/modulo/a', [FarmaceuticoController::class, 'moduloA'])->name('modulo.a');
+Route::get('/modulo/b', [FarmaceuticoController::class, 'moduloB'])->name('modulo.b');
+Route::get('/modulo/c', [FarmaceuticoController::class, 'moduloC'])->name('modulo.c');
 
-Route::get('/modulo/b', function () {
-    return 'Módulo B';
-})->name('modulo.b');
+// Ruta para mostrar los datos de una receta pendiente
+Route::get('/receta/{id}', [FarmaceuticoController::class, 'mostrarReceta'])->name('mostrar.receta');
 
-Route::get('/modulo/c', function () {
-    return 'Módulo C';
-})->name('modulo.c');
+// Ruta para entregar una receta
+Route::post('/entregar-receta/{id}', [FarmaceuticoController::class, 'entregarReceta'])->name('entregar.receta');

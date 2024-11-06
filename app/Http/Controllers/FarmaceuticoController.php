@@ -58,4 +58,67 @@ class FarmaceuticoController extends Controller
     {
         return view('dashboardFarmaceutico');
     }
+
+    public function moduloA()
+    {
+        $recetas = DB::table('Receta')
+            ->join('Paciente', 'Receta.id_paciente', '=', 'Paciente.id_paciente')
+            ->join('registro_receta', 'Receta.id_receta', '=', 'registro_receta.id_receta')
+            ->leftJoin('registro_receta_entregada', 'Receta.id_receta', '=', 'registro_receta_entregada.id_receta')
+            ->select('Receta.*', 'Paciente.nombre as nombre_paciente')
+            ->where('registro_receta.estado_receta', 'pendiente')
+            ->whereNull('registro_receta_entregada.id_receta')
+            ->get();
+        return view('moduloA', compact('recetas'));
+    }
+
+    public function moduloB()
+    {
+        $recetas = DB::table('Receta')
+            ->join('Paciente', 'Receta.id_paciente', '=', 'Paciente.id_paciente')
+            ->join('registro_receta', 'Receta.id_receta', '=', 'registro_receta.id_receta')
+            ->leftJoin('registro_receta_entregada', 'Receta.id_receta', '=', 'registro_receta_entregada.id_receta')
+            ->select('Receta.*', 'Paciente.nombre as nombre_paciente')
+            ->where('registro_receta.estado_receta', 'pendiente')
+            ->whereNull('registro_receta_entregada.id_receta')
+            ->get();
+        return view('moduloB', compact('recetas'));
+    }
+
+    public function moduloC()
+    {
+        $recetas = DB::table('Receta')
+            ->join('Paciente', 'Receta.id_paciente', '=', 'Paciente.id_paciente')
+            ->join('registro_receta', 'Receta.id_receta', '=', 'registro_receta.id_receta')
+            ->leftJoin('registro_receta_entregada', 'Receta.id_receta', '=', 'registro_receta_entregada.id_receta')
+            ->select('Receta.*', 'Paciente.nombre as nombre_paciente')
+            ->where('registro_receta.estado_receta', 'pendiente')
+            ->whereNull('registro_receta_entregada.id_receta')
+            ->get();
+        return view('moduloC', compact('recetas'));
+    }
+
+    public function mostrarReceta($id)
+    {
+        $receta = DB::table('Receta')
+            ->join('Paciente', 'Receta.id_paciente', '=', 'Paciente.id_paciente')
+            ->select('Receta.*', 'Paciente.nombre as nombre_paciente')
+            ->where('Receta.id_receta', $id)
+            ->first();
+
+        return view('mostrarReceta', compact('receta'));
+    }
+
+    public function entregarReceta($id)
+    {
+        // Registrar la entrega de la receta en la tabla registro_receta_entregada
+        DB::table('registro_receta_entregada')->insert([
+            'fecha_registro' => now(),
+            'estado_receta' => 'Entregada',
+            'id_receta' => $id,
+            'id_farmaceutico' => Session::get('farmaceutico')->id_farmaceutico,
+        ]);
+
+        return redirect()->route('modulo.a')->with('success', 'Receta entregada exitosamente.');
+    }
 }
