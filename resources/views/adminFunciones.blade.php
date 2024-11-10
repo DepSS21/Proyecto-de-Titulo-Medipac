@@ -30,6 +30,15 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4 mb-4">
+            <div class="card text-center h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Informes</h5>
+                    <p class="card-text flex-grow-1">Acceso para generar informes y consultas gráficas.</p>
+                    <a href="{{ route('informes.show') }}" class="btn btn-primary">Seleccionar</a>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Botón de volver -->
     <div class="mt-4 text-center">

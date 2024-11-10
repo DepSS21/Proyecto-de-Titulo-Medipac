@@ -80,7 +80,7 @@
     @endif
 
     <div class="mt-4">
-    <a href="{{ url('/') }}" class="btn btn-secondary">Volver</a>
+    <a href="{{ url('/paciente') }}" class="btn btn-secondary">Volver</a>
 </div>
 
 </div>

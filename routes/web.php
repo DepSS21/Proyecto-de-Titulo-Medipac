@@ -8,6 +8,8 @@ use App\Http\Controllers\MedicoAuthController;
 use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\FarmaceuticoController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InformesController;
+
 
 //Aquí se definen las rutas de la aplicación.
 
@@ -103,3 +105,20 @@ Route::get('/receta/{id}', [FarmaceuticoController::class, 'mostrarReceta'])->na
 
 // Ruta para entregar una receta
 Route::post('/entregar-receta/{id}', [FarmaceuticoController::class, 'entregarReceta'])->name('entregar.receta');
+
+
+// Ruta para mostrar la vista de informes
+Route::get('/admin/informes', [InformesController::class, 'show'])->name('informes.show');
+
+// Ruta para generar el informe
+Route::get('/admin/informes/generar', [InformesController::class, 'generarInforme'])->name('informes.generar');
+
+// Ruta para consultar las recetas pendientes
+Route::get('/admin/informes/pendientes', [InformesController::class, 'pendientes'])->name('informes.pendientes');
+
+// Ruta para buscar una receta por ID
+Route::get('/admin/informes/buscar-receta', [InformesController::class, 'buscarReceta'])->name('informes.buscarReceta');
+
+
+// Ruta para consultar las recetas entregadas por fecha
+Route::get('/admin/informes/entregadas-por-fecha', [InformesController::class, 'entregadasPorFecha'])->name('informes.entregadasPorFecha');

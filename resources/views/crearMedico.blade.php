@@ -42,7 +42,7 @@
 
     <!-- Botón para volver a la página de tipoUsuario -->
     <div class="mt-4 text-center">
-        <a href="{{ route('tipoUsuario') }}" class="btn btn-secondary">Volver a Tipo de Usuario</a>
+        <a href="{{ route('admin.funciones') }}" class="btn btn-secondary">Volver</a>
     </div>
 </div>
 </body>
