@@ -122,3 +122,4 @@ Route::get('/admin/informes/buscar-receta', [InformesController::class, 'buscarR
 
 // Ruta para consultar las recetas entregadas por fecha
 Route::get('/admin/informes/entregadas-por-fecha', [InformesController::class, 'entregadasPorFecha'])->name('informes.entregadasPorFecha');
+

@@ -67,8 +67,9 @@ class InformesController extends Controller
         $recetasPorFecha = DB::table('registro_receta_entregada')
             ->join('Receta', 'registro_receta_entregada.id_receta', '=', 'Receta.id_receta')
             ->join('Paciente', 'Receta.id_paciente', '=', 'Paciente.id_paciente')
+            ->join('Farmaceutico', 'registro_receta_entregada.id_farmaceutico', '=', 'Farmaceutico.id_farmaceutico')
             ->whereDate('registro_receta_entregada.fecha_registro', $fechaEntrega)
-            ->select('Receta.id_receta', 'Paciente.nombre as nombre_paciente', 'registro_receta_entregada.fecha_registro', 'registro_receta_entregada.estado_receta')
+            ->select('Receta.id_receta', 'Paciente.nombre', 'Paciente.apellido', 'Paciente.rut_paciente', 'registro_receta_entregada.fecha_registro', 'registro_receta_entregada.estado_receta', 'Receta.diagnostico', 'Receta.comentarios', 'Farmaceutico.nombre as nombre_farmaceutico')
             ->get();
 
         return view('informes', compact('recetasPorFecha', 'fechaEntrega'));

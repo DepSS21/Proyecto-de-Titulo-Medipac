@@ -7,6 +7,8 @@ use App\Models\Receta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
 
+use Illuminate\Support\Facades\Log;
+
 class PacienteController extends Controller
 {
     public function validarRut(Request $request)
@@ -68,7 +70,7 @@ class PacienteController extends Controller
             'receta_id' => 'required|exists:Receta,id_receta'
         ]);
 
-        // Verificar si la receta ya fue seleccionada usando una consulta directa a la base de datos
+        // Verificar si la receta ya fue seleccionada
         $registroExistente = DB::table('registro_receta')
             ->where('id_receta', $request->receta_id)
             ->where('estado_receta', 'Pendiente')
@@ -79,19 +81,61 @@ class PacienteController extends Controller
                 ->with('error', 'Esta receta ya ha sido seleccionada para retiro.');
         }
 
-        // Insertar nuevo registro en la tabla registro_receta
-        DB::table('registro_receta')->insert([
-            'fecha_registro' => now(),
-            'estado_receta' => 'Pendiente',
-            'id_receta' => $request->receta_id
-        ]);
+        // Obtener la información del paciente y la receta
+        $receta = DB::table('Receta')->where('id_receta', $request->receta_id)->first();
+        $paciente = DB::table('Paciente')->where('id_paciente', $receta->id_paciente)->first();
 
-        return redirect()->back()
-            ->with('success', 'Receta seleccionada correctamente para retiro.');
-            
+        // Validar y mapear el diagnóstico
+        $diagnostico = strtolower($receta->Diagnostico);
+        $enfermedades_dummies = [
+            // Lista de enfermedades como en el script de Python...
+        ];
+
+        if (!array_key_exists($diagnostico, $enfermedades_dummies)) {
+            return redirect()->back()->with('error', 'Diagnóstico no reconocido en el sistema.');
+        }
+
+        $diagnostico_numerico = $enfermedades_dummies[$diagnostico];
+
+        // Preparar los datos para el modelo
+        $datos = [
+            "edad" => $paciente->edad,
+            "sexo" => $paciente->sexo,
+            "diagnostico" => $diagnostico
+        ];
+
+        // Convertir a JSON
+        $datosJson = json_encode($datos, JSON_UNESCAPED_UNICODE);
+        Log::info('Datos enviados al script de Python: ' . $datosJson);
+
+        // Ejecutar el script
+        $comando = "python C:\\xampp\\htdocs\\Laravel\\proyecto-app\\python_service\\predict_module.py " . escapeshellarg($datosJson);
+        exec($comando, $output, $returnCode);
+
+        Log::info('Salida del script de Python:', ['output' => $output, 'returnCode' => $returnCode]);
+
+        if ($returnCode === 0) {
+            $modulo = trim($output[0]);
+            DB::table('registro_receta')->insert([
+                'fecha_registro' => now(),
+                'estado_receta' => 'Pendiente',
+                'id_receta' => $request->receta_id
+            ]);
+            return redirect()->back()
+                ->with('success', "Receta seleccionada correctamente. Dirígete al Módulo $modulo.");
+        } else {
+            return redirect()->back()->with('error', 'El script de Python falló.');
+        }
     } catch (\Exception $e) {
-        return redirect()->back()
-            ->with('error', 'Error al seleccionar la receta: ' . $e->getMessage());
+        Log::error('Error: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Error al seleccionar la receta.');
     }
 }
-}
+
+
+    
+}   
+    
+
+
+
