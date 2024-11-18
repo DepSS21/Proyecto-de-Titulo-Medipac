@@ -1,0 +1,44 @@
+2024-11-17 22:50:29,639 - INFO - Script iniciado
+2024-11-17 22:50:29,639 - INFO - Cargando modelo y scaler
+2024-11-17 22:50:30,659 - INFO - Datos recibidos: { edad :35, sexo : f , diagnostico :25}
+2024-11-17 22:50:30,659 - ERROR - Error de validación: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)
+2024-11-17 22:54:53,253 - INFO - Script iniciado
+2024-11-17 22:54:53,253 - INFO - Cargando modelo y scaler
+2024-11-17 22:54:54,153 - INFO - Datos recibidos: { edad :35, sexo : f , diagnostico :25}
+2024-11-17 22:54:54,153 - ERROR - Error de validación: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)
+2024-11-17 23:03:43,961 - INFO - Script iniciado
+2024-11-17 23:03:43,961 - INFO - Cargando modelo y scaler
+2024-11-17 23:03:46,666 - INFO - Datos recibidos: { diagnostico :25, edad :35, sexo : f }
+2024-11-17 23:03:46,666 - ERROR - Error de validación: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)
+2024-11-17 23:05:42,696 - INFO - Script iniciado
+2024-11-17 23:05:42,697 - INFO - Cargando modelo y scaler
+2024-11-17 23:05:43,557 - INFO - Datos recibidos: {\
+2024-11-17 23:05:43,557 - ERROR - Error de validación: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+2024-11-17 23:06:26,988 - INFO - Script iniciado
+2024-11-17 23:06:26,989 - INFO - Cargando modelo y scaler
+2024-11-17 23:06:29,312 - INFO - Datos recibidos: { diagnostico :25, edad :35, sexo : f }
+2024-11-17 23:06:29,312 - ERROR - Error de validación: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)
+2024-11-17 23:12:50,599 - INFO - Script iniciado
+2024-11-17 23:12:50,599 - INFO - Datos recibidos: { diagnostico :25, edad :35, sexo : f }
+2024-11-17 23:12:50,599 - ERROR - Error al decodificar el JSON: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)
+2024-11-17 23:12:53,972 - INFO - Script iniciado
+2024-11-17 23:12:53,972 - INFO - Datos recibidos: { diagnostico :25, edad :35, sexo : f }
+2024-11-17 23:12:53,972 - ERROR - Error al decodificar el JSON: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)
+2024-11-17 23:15:18,929 - INFO - Script iniciado
+2024-11-17 23:15:18,929 - INFO - Datos recibidos: { diagnostico :25, edad :35, sexo : f }
+2024-11-17 23:15:18,929 - ERROR - Error al decodificar el JSON: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)
+2024-11-17 23:17:23,601 - INFO - Script iniciado
+2024-11-17 23:17:23,601 - INFO - Datos recibidos: { diagnostico :25, edad :35, sexo : f }
+2024-11-17 23:17:23,601 - ERROR - Error al decodificar el JSON: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)
+2024-11-17 23:19:16,642 - INFO - Script iniciado
+2024-11-17 23:19:16,643 - INFO - Datos recibidos: {diagnostico:25,edad:35,sexo:f}
+2024-11-17 23:19:16,643 - ERROR - Error al decodificar el JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+2024-11-17 23:19:22,122 - INFO - Script iniciado
+2024-11-17 23:19:22,122 - INFO - Datos recibidos: {diagnostico:25,edad:35,sexo:f}
+2024-11-17 23:19:22,122 - ERROR - Error al decodificar el JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+2024-11-17 23:25:38,630 - INFO - Script iniciado
+2024-11-17 23:25:38,630 - INFO - Cargando modelo y scaler
+2024-11-17 23:25:39,537 - INFO - Datos recibidos: {diagnostico:25,edad:35,sexo:f}
+2024-11-17 23:25:39,537 - INFO - Cadena antes de cargar JSON: {diagnostico:25,edad:35,sexo:f}
+2024-11-17 23:25:39,538 - ERROR - Error al decodificar el JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+2024-11-17 23:25:39,538 - ERROR - Error de validación: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)

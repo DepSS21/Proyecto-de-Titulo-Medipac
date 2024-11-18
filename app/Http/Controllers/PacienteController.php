@@ -69,51 +69,85 @@ class PacienteController extends Controller
         $request->validate([
             'receta_id' => 'required|exists:Receta,id_receta'
         ]);
-
+    
         // Verificar si la receta ya fue seleccionada
         $registroExistente = DB::table('registro_receta')
             ->where('id_receta', $request->receta_id)
             ->where('estado_receta', 'Pendiente')
             ->first();
-
+    
         if ($registroExistente) {
             return redirect()->back()
                 ->with('error', 'Esta receta ya ha sido seleccionada para retiro.');
         }
-
+    
         // Obtener la información del paciente y la receta
         $receta = DB::table('Receta')->where('id_receta', $request->receta_id)->first();
         $paciente = DB::table('Paciente')->where('id_paciente', $receta->id_paciente)->first();
-
+    
         // Validar y mapear el diagnóstico
         $diagnostico = strtolower($receta->Diagnostico);
         $enfermedades_dummies = [
-            // Lista de enfermedades como en el script de Python...
+            'diabetes con' => 45,
+            'hipertensión con' => 1,
+            'asma con' => 2,
+            'enfermedad cardíaca' => 3,
+            'alergia severa' => 4,
+            'colesterol alto' => 5,
+            'artritis' => 6,
+            'enfermedad renal crónica' => 7,
+            'cáncer' => 8,
+            'migraña' => 9,
+            'depresión severa' => 10,
+            'ansiedad generalizada' => 11,
+            'hepatitis' => 12,
+            'alzheimer' => 13,
+            'fibromialgia' => 14,
+            'esclerosis múltiple' => 15,
+            'anemia severa' => 16,
+            'obesidad severa' => 17,
+            'insuficiencia respiratoria' => 18,
+            'epilepsia' => 19,
+            'osteoporosis' => 20,
+            'cirrosis' => 21,
+            'hipotiroidismo' => 22,
+            'parkinson' => 23,
+            'lupus' => 24,
+            'hipertension' => 25,
+            'diabetes' => 26
         ];
-
+    
+        // Verificar si el diagnóstico está en el diccionario
         if (!array_key_exists($diagnostico, $enfermedades_dummies)) {
             return redirect()->back()->with('error', 'Diagnóstico no reconocido en el sistema.');
         }
-
-        $diagnostico_numerico = $enfermedades_dummies[$diagnostico];
-
+    
+        // Mapea el diagnóstico a la cadena de texto correspondiente
+        $diagnostico_transformado = $enfermedades_dummies[$diagnostico];
+    
         // Preparar los datos para el modelo
         $datos = [
-            "edad" => $paciente->edad,
-            "sexo" => $paciente->sexo,
-            "diagnostico" => $diagnostico
+            "diagnostico" => $diagnostico_transformado, // Mapeo de diagnóstico
+            "edad" => (int)$paciente->edad, // Edad del paciente
+            "sexo" => ($paciente->sexo == 'F' ? 2 : 1) // Sexo del paciente (1 para M, 2 para F)
         ];
-
+    
         // Convertir a JSON
         $datosJson = json_encode($datos, JSON_UNESCAPED_UNICODE);
-        Log::info('Datos enviados al script de Python: ' . $datosJson);
-
-        // Ejecutar el script
-        $comando = "python C:\\xampp\\htdocs\\Laravel\\proyecto-app\\python_service\\predict_module.py " . escapeshellarg($datosJson);
+    
+        // Loguear los datos antes de generar el archivo
+        Log::info('Datos para archivo JSON: ' . $datosJson);
+    
+        // Crear el archivo JSON en la carpeta python_service
+        $path = storage_path('app/python_service/receta_datos.json'); // Definir la ruta
+        file_put_contents($path, $datosJson); // Escribir los datos al archivo JSON
+    
+        // Continuar con la lógica del controlador (como la predicción y el registro de receta)
+        $comando = "python C:/xampp/htdocs/Laravel/proyecto-app/python_service/predict_module.py \"$datosJson\"";
         exec($comando, $output, $returnCode);
-
+    
         Log::info('Salida del script de Python:', ['output' => $output, 'returnCode' => $returnCode]);
-
+    
         if ($returnCode === 0) {
             $modulo = trim($output[0]);
             DB::table('registro_receta')->insert([
@@ -133,9 +167,9 @@ class PacienteController extends Controller
 }
 
 
-    
+
 }   
-    
+
 
 
 

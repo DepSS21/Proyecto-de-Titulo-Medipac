@@ -1,5 +1,5 @@
 {
-    "condicion_medica": 2,
+    "diagnostico": 25,
     "edad": 80,
-    "sexo": "femenino"
-}
+    "sexo": 1
+  }
