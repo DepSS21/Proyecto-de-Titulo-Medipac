@@ -6,23 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="{{ asset('css/fondo.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
 </head>
 <body>
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Mis Recetas</h1>
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
 
     <div class="card mb-4">
         <div class="card-header">
@@ -80,10 +70,51 @@
     @endif
 
     <div class="mt-4">
-    <a href="{{ url('/paciente') }}" class="btn btn-secondary">Volver</a>
+        <a href="{{ url('/paciente') }}" class="btn btn-secondary">Volver</a>
+    </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alertModalLabel">Mensaje</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @elseif (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+            <div class="modal-footer">
+                <a href="{{ url('/paciente') }}" class="btn btn-primary">Aceptar</a>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        @if (session('success') || session('error'))
+            let alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+            alertModal.show();
+        @endif
+    });
+</script>
+
+
+<footer class="footer text-center">
+    <div class="container">
+      <span>&copy; 2024 Medipac. Todos los derechos reservados.</span>
+    </div>
+  </footer>
 
 </body>
 </html>

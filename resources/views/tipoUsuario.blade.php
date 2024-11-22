@@ -10,6 +10,8 @@
 </head>
 <body>
 
+
+
 <div class="header text-center">
   <h1 class="display-4">Bienvenido a Medipac</h1>
   <p class="lead">Por favor elija el usuario que va a utilizar el sistema</p> 

@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="{{ asset('css/fondo.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
   <script>
     let focusedInput = null;
 
@@ -123,9 +125,18 @@
         <button type="button" class="btn btn-secondary" onclick="agregarCaracter('k')">K</button>
         <button type="button" class="btn btn-secondary" onclick="borrarCaracter()">←</button>
       </div>
-      <button type="submit" class="btn btn-primary">Siguiente</button>
+      <div class="d-flex justify-content-between">
+        <a href="{{ url('/tipo-usuario') }}" class="btn btn-secondary">Volver</a>
+        <button type="submit" class="btn btn-primary">Siguiente</button>
+      </div>
     </form>
   </div>
+
+  <footer class="footer text-center">
+    <div class="container">
+      <span>&copy; 2024 Medipac. Todos los derechos reservados.</span>
+    </div>
+  </footer>
   
 </body>
 </html>

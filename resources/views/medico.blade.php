@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="{{ asset('css/fondo.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Configurar la fecha de creación para que sea la fecha de hoy
@@ -103,9 +105,15 @@
       <label for="comentario" class="form-label">Comentario:</label>
       <textarea class="form-control" id="comentario" name="comentario" rows="3" placeholder="Ingrese el Medicamento y la Dosis"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Generar Receta</button>
+    <button type="submit" class="btn btn-primary">Generar Receta</button> 
   </form>
 </div>
+<footer class="footer text-center">
+  <div class="container">
+    <span>&copy; 2024 Medipac. Todos los derechos reservados.</span>
+  </div>
+</footer>
+
 
 </body>
 </html>

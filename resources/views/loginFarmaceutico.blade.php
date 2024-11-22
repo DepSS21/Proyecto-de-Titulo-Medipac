@@ -7,6 +7,8 @@
     <title>Login Farmacéutico</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="{{ asset('css/fondo.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-5">
@@ -33,6 +35,13 @@
     <!-- Botón de volver -->
     <a href="{{ route('tipoUsuario') }}" class="btn btn-secondary mt-3">Volver</a>
 </div>
+
+<footer class="footer text-center">
+    <div class="container">
+      <span>&copy; 2024 Medipac. Todos los derechos reservados.</span>
+    </div>
+  </footer>
+
 
 </body>
 </html>
