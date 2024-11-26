@@ -37,6 +37,4 @@ cluster_to_prioridad = {0: 'A', 1: 'B', 2: 'C'}  # Ajustar si es necesario
 prioridad = cluster_to_prioridad[prediccion_cluster[0]]
 
 # Mostrar la prioridad
-print(f"El paciente pertenece a la prioridad: {prioridad}")
-
-
+print(f": {prioridad}")

@@ -32,37 +32,52 @@ class PacienteController extends Controller
     }
 
     public function mostrarRecetas()
-    {
-        $paciente_id = session('paciente_id');
-        if (!$paciente_id) {
-            return redirect('/')->with('error', 'Por favor, ingrese su RUT y número de serie.');
-        }
-    
-        // Obtener las recetas con su estado más reciente
-        $recetas = DB::table('Receta')
-            ->join('Medico', 'Receta.id_medico', '=', 'Medico.id_medico')
-            ->leftJoin(DB::raw('(
-                SELECT id_receta, estado_receta
-                FROM registro_receta r1
-                WHERE fecha_registro = (
-                    SELECT MAX(fecha_registro)
-                    FROM registro_receta r2
-                    WHERE r2.id_receta = r1.id_receta
-                )
-            ) as ultimo_estado'), 'Receta.id_receta', '=', 'ultimo_estado.id_receta')
-            ->where('Receta.id_paciente', $paciente_id)
-            ->select(
-                'Receta.*',
-                'Medico.nombre as nombre_medico',
-                DB::raw('COALESCE(ultimo_estado.estado_receta, \'Generado\') as estado_receta')
-            )
-            ->orderBy('Receta.fecha_creacion', 'desc')
-            ->get();
-    
-        $paciente = Paciente::find($paciente_id);
-    
-        return view('mostrarRecetas', compact('recetas', 'paciente'));
+{
+    $paciente_id = session('paciente_id');
+    if (!$paciente_id) {
+        return redirect('/')->with('error', 'Por favor, ingrese su RUT y número de serie.');
     }
+
+    // Obtener los id_receta que ya han sido entregadas
+    $recetasEntregadas = DB::table('registro_receta_entregada')
+        ->pluck('id_receta')
+        ->toArray();
+
+    // Obtener los id_receta que están pendientes
+    $recetasPendientes = DB::table('registro_receta')
+        ->where('estado_receta', 'Pendiente')
+        ->pluck('id_receta')
+        ->toArray();
+
+    // Combinar las recetas entregadas y pendientes
+    $recetasExcluidas = array_merge($recetasEntregadas, $recetasPendientes);
+
+    // Obtener las recetas con su estado más reciente, excluyendo las entregadas y pendientes
+    $recetas = DB::table('Receta')
+        ->join('Medico', 'Receta.id_medico', '=', 'Medico.id_medico')
+        ->leftJoin(DB::raw('(
+            SELECT id_receta, estado_receta
+            FROM registro_receta r1
+            WHERE fecha_registro = (
+                SELECT MAX(fecha_registro)
+                FROM registro_receta r2
+                WHERE r2.id_receta = r1.id_receta
+            )
+        ) as ultimo_estado'), 'Receta.id_receta', '=', 'ultimo_estado.id_receta')
+        ->where('Receta.id_paciente', $paciente_id)
+        ->whereNotIn('Receta.id_receta', $recetasExcluidas) // Excluir recetas entregadas y pendientes
+        ->select(
+            'Receta.*',
+            'Medico.nombre as nombre_medico',
+            DB::raw('COALESCE(ultimo_estado.estado_receta, \'Generado\') as estado_receta')
+        )
+        ->orderBy('Receta.fecha_creacion', 'desc')
+        ->get();
+
+    $paciente = Paciente::find($paciente_id);
+
+    return view('mostrarRecetas', compact('recetas', 'paciente'));
+}
     public function seleccionarReceta(Request $request)
 {
     try {
