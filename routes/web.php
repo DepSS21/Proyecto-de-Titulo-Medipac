@@ -91,7 +91,7 @@ Route::post('/farmaceutico/login', [FarmaceuticoController::class, 'login'])->na
 Route::post('/farmaceutico/logout', [FarmaceuticoController::class, 'logout'])->name('farmaceutico.logout');
 
 
-// Ruta para el dashboard del farmacéutico
+// Ruta para el dashboard del farmacéutico 
 Route::get('/farmaceutico/dashboard', [FarmaceuticoController::class, 'dashboard'])->name('farmaceutico.dashboard');
 
 
@@ -102,6 +102,7 @@ Route::get('/modulo/c', [FarmaceuticoController::class, 'moduloC'])->name('modul
 
 // Ruta para mostrar los datos de una receta pendiente
 Route::get('/receta/{id}', [FarmaceuticoController::class, 'mostrarReceta'])->name('mostrar.receta');
+
 
 // Ruta para entregar una receta
 Route::post('/entregar-receta/{id}', [FarmaceuticoController::class, 'entregarReceta'])->name('entregar.receta');
@@ -123,3 +124,11 @@ Route::get('/admin/informes/buscar-receta', [InformesController::class, 'buscarR
 // Ruta para consultar las recetas entregadas por fecha
 Route::get('/admin/informes/entregadas-por-fecha', [InformesController::class, 'entregadasPorFecha'])->name('informes.entregadasPorFecha');
 
+
+Route::get('/moduloA', [PacienteController::class, 'vistaModuloA'])->name('moduloA');
+Route::get('/moduloB', [PacienteController::class, 'vistaModuloB'])->name('moduloB');
+Route::get('/moduloC', [PacienteController::class, 'vistaModuloC'])->name('moduloC');
+
+Route::get('/moduloA', [FarmaceuticoController::class, 'moduloA'])->name('farmaceutico.modulo.A');
+Route::get('/moduloB', [FarmaceuticoController::class, 'moduloB'])->name('farmaceutico.modulo.B');
+Route::get('/moduloC', [FarmaceuticoController::class, 'moduloC'])->name('farmaceutico.modulo.C');

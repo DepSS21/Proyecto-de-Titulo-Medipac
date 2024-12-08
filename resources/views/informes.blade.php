@@ -23,6 +23,9 @@
         <button type="submit" class="btn btn-success">Consultar Recetas Entregadas</button>
     </form>
 
+
+    <iframe title="Medipac" width="1280" height="720" src="https://app.powerbi.com/view?r=eyJrIjoiNzYwMWFjNDYtZDEyZS00MGYyLWIwNGEtODZmMjg2MmQ3NGEzIiwidCI6IjEwMjU1ZDY4LTZmOGYtNDVlMy1iNzRiLWJmY2QxYWYyODNhMiIsImMiOjR9" frameborder="0" allowFullScreen="true"></iframe>
+ 
     @if(isset($recetasPorFecha))
         <div class="mt-5">
             <h2 class="text-center">Recetas Entregadas el {{ $fechaEntrega }}</h2>
