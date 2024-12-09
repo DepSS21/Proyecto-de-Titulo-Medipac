@@ -14,14 +14,6 @@
 <div class="container mt-5">
     <h1 class="text-center">Informes</h1>
 
-    <h1 class="text-center mt-5">Consulta de Recetas Entregadas</h1>
-    <form method="GET" action="{{ route('informes.entregadasPorFecha') }}" class="mt-3">
-        <div class="mb-3">
-            <label for="fecha_entrega" class="form-label">Fecha de Entrega:</label>
-            <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" required>
-        </div>
-        <button type="submit" class="btn btn-success">Consultar Recetas Entregadas</button>
-    </form>
 
 
     <iframe title="Medipac" width="1280" height="720" src="https://app.powerbi.com/view?r=eyJrIjoiNzYwMWFjNDYtZDEyZS00MGYyLWIwNGEtODZmMjg2MmQ3NGEzIiwidCI6IjEwMjU1ZDY4LTZmOGYtNDVlMy1iNzRiLWJmY2QxYWYyODNhMiIsImMiOjR9" frameborder="0" allowFullScreen="true"></iframe>

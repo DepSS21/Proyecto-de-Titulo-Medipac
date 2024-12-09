@@ -33,7 +33,7 @@ data_scaled = scaler.transform(data_input)
 prediccion_cluster = modelo.predict(data_scaled)
 
 # Mapear el cluster a la prioridad
-cluster_to_prioridad = {0: 'A', 1: 'B', 2: 'C'}  # Ajustar si es necesario
+cluster_to_prioridad = {0: 'A', 1: 'B', 2: 'C'} 
 prioridad = cluster_to_prioridad[prediccion_cluster[0]]
 
 # Mostrar la prioridad

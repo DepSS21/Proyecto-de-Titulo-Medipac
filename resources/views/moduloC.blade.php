@@ -14,7 +14,7 @@
     <div class="container mt-5">
         <h1 class="text-center">Módulo C - Recetas Pendientes</h1>
         
-        <!-- Modal para mensaje de éxito -->
+      
         <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <!-- Mostrar recetas pendientes -->
+       
         @if ($recetas->isEmpty())
             <p class="text-center">No hay recetas pendientes en este módulo.</p>
         @else
@@ -60,7 +60,7 @@
             </table>
         @endif
 
-        <!-- Botón de volver -->
+    
         <div class="mt-4 text-center">
             <a href="{{ route('farmaceutico.dashboard') }}" class="btn btn-secondary">Volver a Selección de Módulos</a>
         </div>
@@ -73,7 +73,7 @@
     </footer>
 
     <script>
-        // Mostrar el modal si hay un mensaje de éxito
+       
         @if (session('success'))
             var successModal = new bootstrap.Modal(document.getElementById('successModal'));
             successModal.show();

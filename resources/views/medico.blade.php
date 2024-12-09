@@ -41,7 +41,7 @@
     </div>
   @endif
 
-  <!-- Botón de logout -->
+  
   <form method="POST" action="{{ route('medico.logout') }}">
     @csrf
     <button type="submit" class="btn btn-danger">Cerrar Sesión</button>

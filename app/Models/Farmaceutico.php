@@ -9,12 +9,12 @@ class Farmaceutico extends Model
 {
     use HasFactory;
 
-    protected $table = 'Farmaceutico'; // Especificar la tabla Farmaceutico
+    protected $table = 'Farmaceutico'; 
 
     protected $fillable = [
         'nombre',
         'rut_farmaceutico',
     ];
 
-    public $timestamps = false; // Deshabilitar las marcas de tiempo automáticas
+    public $timestamps = false; 
 }

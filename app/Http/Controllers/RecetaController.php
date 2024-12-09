@@ -64,11 +64,11 @@ class RecetaController extends Controller
 
         // Crear la receta
         $receta = new Receta();
-        $receta->fecha_creacion = now(); // Fecha actual
+        $receta->fecha_creacion = now(); 
         $receta->Diagnostico = $validatedData['diagnostico'];
         $receta->comentarios = $validatedData['comentario'];
-        $receta->id_medico = $medico->id_medico; // Usar el ID del médico en sesión
-        $receta->id_paciente = $paciente->id_paciente; // Usar el ID del paciente encontrado
+        $receta->id_medico = $medico->id_medico;
+        $receta->id_paciente = $paciente->id_paciente; 
         $receta->save();
 
         return redirect()->route('receta.form')

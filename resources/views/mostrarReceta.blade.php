@@ -44,7 +44,7 @@
         @csrf
         <button type="submit" class="btn btn-primary">Entregar</button>
     </form>
-    <!-- Botón de volver -->
+  
     <div class="mt-4 text-center">
         <a href="{{ url()->previous() }}" class="btn btn-secondary">Volver</a>
     </div>

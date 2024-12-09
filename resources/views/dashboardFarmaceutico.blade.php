@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <!-- Botón de cerrar sesión -->
+   
     <div class="mt-4 text-center">
         <form method="POST" action="{{ route('farmaceutico.logout') }}">
             @csrf

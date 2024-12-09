@@ -42,7 +42,7 @@
         <button type="submit" class="btn btn-primary">Crear Médico</button>
     </form>
 
-    <!-- Botón para volver a la página de tipoUsuario -->
+  
     <div class="mt-4 text-center">
         <a href="{{ route('admin.funciones') }}" class="btn btn-secondary">Volver</a>
     </div>

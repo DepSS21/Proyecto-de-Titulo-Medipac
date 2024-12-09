@@ -23,7 +23,7 @@
         <div class="card text-center h-100">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">Médico</h5>
-            <p class="card-text flex-grow-1">Acceso para profesionales médicos. Gestione recetas y consulte información de pacientes.</p>
+            <p class="card-text flex-grow-1">Acceso para profesionales médicos. Gestione recetas.</p>
             <a href="/medico" class="btn btn-custom">Seleccionar</a>
           </div>
         </div>

@@ -74,7 +74,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+
 <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <!-- Botón de volver -->
+  
     <div class="mt-4 text-center">
         <a href="{{ route('tipoUsuario') }}" class="btn btn-secondary">Volver</a>
     </div>

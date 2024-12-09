@@ -32,7 +32,7 @@
     <button type="submit" class="btn btn-primary">Ingresar</button>
   </form>
 
-  <!-- Botón de volver -->
+ 
   <a href="{{ route('tipoUsuario') }}" class="btn btn-secondary mt-3">Volver</a>
 </div>
 

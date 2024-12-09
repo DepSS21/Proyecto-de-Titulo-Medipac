@@ -30,7 +30,7 @@ public function seleccionarReceta(Request $request)
     exec("python3 /ruta/a/tu/proyecto/predict_module.py " . escapeshellarg($datos), $output, $returnCode);
 
     if ($returnCode === 0) {
-        $modulo = $output[0];  // El módulo al que debe dirigirse el paciente
+        $modulo = $output[0];  
         Session::flash('success', "Por favor, dirígete al Módulo $modulo para retirar tu receta.");
     } else {
         Session::flash('error', "Hubo un problema al procesar tu solicitud.");

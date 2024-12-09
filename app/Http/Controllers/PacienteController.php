@@ -55,7 +55,7 @@ class PacienteController extends Controller
     $recetas = DB::table('Receta')
     ->join('Medico', 'Receta.id_medico', '=', 'Medico.id_medico')
     ->join('registro_receta_generada', 'Receta.id_receta', '=', 'registro_receta_generada.id_receta')
-    ->whereNotIn('Receta.id_receta', $recetasExcluidas) // Excluir recetas entregadas y pendientes
+    ->whereNotIn('Receta.id_receta', $recetasExcluidas) 
     ->where('Receta.id_paciente', $paciente_id)
     ->select(
         'Receta.*',
@@ -145,10 +145,10 @@ return view('mostrarRecetas', compact('recetas', 'paciente'));
         Log::info('Datos para archivo JSON: ' . $datosJson);
     
         // Crear el archivo JSON en la carpeta python_service
-        $path = storage_path('app/python_service/receta_datos.json'); // Definir la ruta
-        file_put_contents($path, $datosJson); // Escribir los datos al archivo JSON
+        $path = storage_path('app/python_service/receta_datos.json'); 
+        file_put_contents($path, $datosJson); 
     
-        // Continuar con la lógica del controlador (como la predicción y el registro de receta)
+      
         $comando = "python C:/xampp/htdocs/Laravel/proyecto-app/python_service/predict_module.py \"$datosJson\"";
         exec($comando, $output, $returnCode);
     
@@ -160,7 +160,7 @@ return view('mostrarRecetas', compact('recetas', 'paciente'));
             'fecha_registro' => now(),
             'estado_receta' => 'Pendiente',
             'id_receta' => $request->receta_id,
-            'modulo' => $modulo // Inserta el valor de la variable $modulo
+            'modulo' => $modulo
             ]);
             return redirect()->back()
                 ->with('success', "Receta seleccionada correctamente. Dirígete al Módulo $modulo.");
