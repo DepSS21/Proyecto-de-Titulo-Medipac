@@ -1,66 +1,112 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Medipac — Sistema de Gestión de Recetas Médicas
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema web desarrollado en Laravel 11 para la gestión electrónica de recetas médicas en un contexto de farmacia hospitalaria. Incluye un módulo de Machine Learning (K-Means Clustering) que clasifica automáticamente las recetas en módulos de dispensación (A, B o C) según las características del paciente.
 
-## About Laravel
+## Tabla de contenidos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Descripción general](#descripción-general)
+- [Requisitos](#requisitos)
+- [Instalación rápida](#instalación-rápida)
+- [Tipos de usuario](#tipos-de-usuario)
+- [Documentación técnica](#documentación-técnica)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Descripción general
 
-## Learning Laravel
+Medipac digitaliza el flujo completo de una receta médica:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```
+Médico crea receta → Paciente la selecciona → ML asigna módulo → Farmacéutico la entrega
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+El sistema cuenta con cuatro roles de usuario con accesos independientes:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Rol | Autenticación |
+|---|---|
+| Administrador | Usuario + contraseña (tabla `users`) |
+| Médico | ID de médico (tabla `Medico`) |
+| Paciente | RUT + últimos 3 dígitos del número de serie |
+| Farmacéutico | ID de farmacéutico (tabla `Farmaceutico`) |
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Requisitos
 
-### Premium Partners
+| Componente | Versión mínima |
+|---|---|
+| PHP | 8.3+ (con extensiones `pdo_sqlsrv`, `sqlsrv`) |
+| Composer | 2.x |
+| Node.js | 18+ |
+| npm | 9+ |
+| SQL Server | LocalDB / SQL Server Express |
+| Python | 3.x |
+| Python libs | `numpy`, `scikit-learn` |
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
+## Instalación rápida
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Ver la [Guía de Despliegue](docs/GUIA_DESPLIEGUE.md) completa.
 
-## Code of Conduct
+```bash
+# 1. Clonar repositorio
+git clone https://github.com/DepSS21/Proyecto-de-Titulo-Medipac.git
+cd Proyecto-de-Titulo-Medipac
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 2. Instalar dependencias PHP
+composer install
 
-## Security Vulnerabilities
+# 3. Instalar dependencias Node
+npm install
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 4. Configurar entorno
+cp .env.example .env
+# Editar .env con tus credenciales de SQL Server
 
-## License
+# 5. Crear tablas e insertar datos de prueba
+# Ejecutar database/scripts/setup.sql en tu instancia SQL Server
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 6. Instalar dependencias Python
+python -m pip install numpy scikit-learn
+
+# 7. Iniciar servidores (2 terminales)
+php artisan serve          # Terminal 1
+npm run dev                # Terminal 2
+```
+
+Acceder en: `http://127.0.0.1:8000`
+Credenciales admin por defecto: usuario `admin` / contraseña `admin123`
+
+---
+
+## Tipos de usuario
+
+### Administrador
+- Login en `/`
+- Puede crear médicos, farmacéuticos y ver informes
+
+### Médico
+- Login en `/medico/login` con su ID
+- Busca pacientes por RUT y crea recetas
+
+### Paciente
+- Login en `/paciente` con RUT + últimos 3 dígitos del número de serie
+- Selecciona recetas para retiro (el ML asigna el módulo)
+
+### Farmacéutico
+- Login en `/farmaceutico/login` con su ID
+- Ve recetas pendientes por módulo (A, B, C) y registra entregas
+
+---
+
+## Documentación técnica
+
+| Documento | Descripción |
+|---|---|
+| [Arquitectura](docs/ARQUITECTURA.md) | Estructura del proyecto, stack tecnológico y decisiones de diseño |
+| [Base de Datos](docs/BASE_DE_DATOS.md) | Esquema completo de tablas y relaciones |
+| [Flujos de Usuario](docs/FLUJOS_USUARIO.md) | Flujos detallados por cada tipo de usuario |
+| [Rutas](docs/RUTAS.md) | Listado completo de rutas HTTP |
+| [Machine Learning](docs/MACHINE_LEARNING.md) | Documentación del modelo K-Means |
+| [Guía de Despliegue](docs/GUIA_DESPLIEGUE.md) | Instalación paso a paso en entorno nuevo |
