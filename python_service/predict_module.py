@@ -1,21 +1,24 @@
 import json
 import sys
+import os
 import numpy as np
 import pickle
 from sklearn.preprocessing import StandardScaler
 
-# Cargar el modelo y el scaler
-with open('C:\\xampp\\htdocs\\Laravel\\proyecto-app\\python_service\\kmeans.pkl', 'rb') as file:
+# Rutas relativas al script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_dir = os.path.dirname(script_dir)
 
+# Cargar el modelo y el scaler
+with open(os.path.join(script_dir, 'kmeans.pkl'), 'rb') as file:
     modelo = pickle.load(file)
 
-with open('C:\\xampp\\htdocs\\Laravel\\proyecto-app\\python_service\\scaler.pkl', 'rb') as file:
-
+with open(os.path.join(script_dir, 'scaler.pkl'), 'rb') as file:
     scaler = pickle.load(file)
 
 # Leer los datos del archivo JSON
-with open('C:\\xampp\\htdocs\\Laravel\\proyecto-app\\storage\\app\\python_service\\receta_datos.json', 'r') as file:
-    
+json_path = os.path.join(project_dir, 'storage', 'app', 'python_service', 'receta_datos.json')
+with open(json_path, 'r') as file:
     datos = json.load(file)
 
 # Extraer los datos
@@ -33,7 +36,7 @@ data_scaled = scaler.transform(data_input)
 prediccion_cluster = modelo.predict(data_scaled)
 
 # Mapear el cluster a la prioridad
-cluster_to_prioridad = {0: 'A', 1: 'B', 2: 'C'} 
+cluster_to_prioridad = {0: 'A', 1: 'B', 2: 'C'}
 prioridad = cluster_to_prioridad[prediccion_cluster[0]]
 
 # Mostrar la prioridad

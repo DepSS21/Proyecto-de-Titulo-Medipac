@@ -18,7 +18,7 @@ class PacienteController extends Controller
             'numeroSerie' => 'required|string|size:3',
         ]);
 
-        $rut = $request->input('rut');
+        $rut = strtoupper(str_replace('.', '', $request->input('rut')));
         $numeroSerie = $request->input('numeroSerie');
 
         $paciente = Paciente::where('rut_paciente', $rut)->first();
@@ -149,7 +149,9 @@ return view('mostrarRecetas', compact('recetas', 'paciente'));
         file_put_contents($path, $datosJson); 
     
       
-        $comando = "python C:/xampp/htdocs/Laravel/proyecto-app/python_service/predict_module.py \"$datosJson\"";
+        $pythonPath = 'C:/Users/Desarrollo/AppData/Local/Python/bin/python.exe';
+        $scriptPath = base_path('python_service/predict_module.py');
+        $comando = "\"{$pythonPath}\" -W ignore \"{$scriptPath}\"";
         exec($comando, $output, $returnCode);
     
         Log::info('Salida del script de Python:', ['output' => $output, 'returnCode' => $returnCode]);
